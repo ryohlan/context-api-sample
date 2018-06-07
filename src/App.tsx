@@ -1,24 +1,22 @@
 import * as React from "react";
 import "./App.css";
-import { StoreContext, StoreContextType } from "./StoreContext";
+import { StoreContext } from "./StoreContext";
 import { TodoList } from "./TodoList";
 import { InputForm } from "./InputForm";
 
-class App extends React.Component<any, StoreContextType> {
+class App extends React.Component<
+  any,
+  { todos: Todo[]; currentFormText: string }
+> {
   constructor(props: any) {
     super(props);
     this.state = {
       todos: [],
-      currentFormText: "",
-      add: this.add,
-      delete: todo =>
-        this.setState({
-          todos: this.state.todos.filter(t => todo.name !== t.name)
-        }),
-      udpateCurentFormText: currentFormText =>
-        this.setState({ currentFormText })
+      currentFormText: ""
     };
   }
+  udpateCurentFormText = (currentFormText: string) =>
+    this.setState({ currentFormText });
 
   add = () => {
     this.setState({
@@ -29,7 +27,13 @@ class App extends React.Component<any, StoreContextType> {
 
   public render() {
     return (
-      <StoreContext.Provider value={this.state}>
+      <StoreContext.Provider
+        value={{
+          ...this.state,
+          add: this.add,
+          udpateCurentFormText: this.udpateCurentFormText
+        }}
+      >
         <div className="App">
           <header className="App-header">
             <h1 className="App-title">Todo List</h1>

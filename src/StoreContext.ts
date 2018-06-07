@@ -5,14 +5,12 @@ export interface StoreContextType {
   currentFormText: string;
   udpateCurentFormText: (t: string) => void;
   add: () => void;
-  delete: (todo: Todo) => void;
 }
 
 const initial: StoreContextType = {
   todos: [],
   currentFormText: "",
   add: () => undefined,
-  delete: () => undefined,
   udpateCurentFormText: () => undefined
 };
 
